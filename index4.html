@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+        <script src="js/script.js"></script>
+        <title>Hello, world!</title>
+    </head>
+
+    <body>
+      <style>
+        body {
+            background: #642B73;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #C6426E, #642B73);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #C6426E, #642B73);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+
+        #form {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 5%;
+        }
+    </style>
+    <div class="row">
+        <div id='form' class="col-8 col-md-4  mx-auto">
+            <h3 id="form__head" class="mb-4 ">Registration Form</h3>
+            <form id="newform" action="#" class="needs-validation" novalidate>
+
+
+                <div class="form-group p-1">
+                    <label for="username"> Username </label>
+
+                    <input type="text" class="form-control" id="username" name="username" required />
+
+                    <div class="invalid-feedback">username can`t username cannot be blank or have space</div>
+                    <div class="valid-feedback">Looks Good</div>
+
+                </div>
+                <div class="form-group p-1">
+                    <label for="email"> Email </label>
+                    <input type="email" class="form-control" name="email" id="email" required />
+                    <div id="email-validation" class="invalid-feedback">Please Check Mail again.</div>
+
+                </div>
+                <div class="form-group p-1">
+                    <label for="password"> Password </label>
+                    <input type="password" class="form-control" name="password" id="password" required />
+                    <div class="invalid-feedback">Please make sure your password contains at least (a
+                        Capital
+                        letter, a number and a
+                        special charcter).</div>
+
+
+                </div>
+                <button type="submit" class=" mt-4 d-block w-100 btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+        <script>
+          document.querySelector('#email').addEventListener('blur', validateEmail);
+
+document.querySelector('#password').addEventListener('blur', validatePassword);
+
+document.querySelector('#username').addEventListener('blur', validateUsername);
+
+const reSpaces = /^\S*$/;
+
+function validateUsername(e) {
+  const username = document.querySelector('#username');
+  if (reSpaces.test(username.value)) {
+    username.classList.remove('is-invalid');
+    username.classList.add('is-valid');
+    return true;
+  } else {
+    username.classList.remove('is-valid');
+
+    username.classList.add('is-invalid');
+    return false;
+  }
+}
+
+function validateEmail(e) {
+  const email = document.querySelector('#email');
+  const re = /^([a-zA-Z0-9_\-?\.?]){3,}@([a-zA-Z]){3,}\.([a-zA-Z]){2,5}$/;
+
+  if (reSpaces.test(email.value) && re.test(email.value)) {
+    email.classList.remove('is-invalid');
+    email.classList.add('is-valid');
+
+    return true;
+  } else {
+    email.classList.add('is-invalid');
+    email.classList.remove('is-valid');
+
+    return false;
+  }
+}
+
+function validatePassword() {
+  const password = document.querySelector('#password');
+  const re = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})(?=.*[!@#$%^&*])/;
+  if (re.test(password.value) && reSpaces.test(password.value)) {
+    password.classList.remove('is-invalid');
+    password.classList.add('is-valid');
+
+    return true;
+  } else {
+    password.classList.add('is-invalid');
+    password.classList.remove('is-valid');
+
+    return false;
+  }
+}
+
+(function () {
+  const forms = document.querySelectorAll('.needs-validation');
+
+  for (let form of forms) {
+    form.addEventListener(
+      'submit',
+      function (event) {
+        if (
+          !form.checkValidity() ||
+          !validateEmail() ||
+          !validateUsername() ||
+          !validatePassword()
+        ) {
+          event.preventDefault();
+          event.stopPropagation();
+        } else {
+          form.classList.add('was-validated');
+        }
+      },
+      false
+    );
+  }
+})();
+        </script>
+    </body>
+</html>
